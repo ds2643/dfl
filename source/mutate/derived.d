@@ -1,4 +1,4 @@
-module mutate.complex;
+module mutate.derived;
 
 // mutate data of derived type
 
