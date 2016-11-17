@@ -45,6 +45,18 @@ ulong mutate(ulong a) {
     return uniform!ulong(); // 64 bits
 }
 
+char mutate(char a) {
+    return uniform!char();
+}
+
+wchar mutate(wchar a) {
+    return uniform!wchar();
+}
+
+dchar mutate(dchar a) {
+    return uniform!dchar();
+}
+
 unittest {
     // test mutation of boolean and integral types
     assert(isBoolean(mutate(true))); // boolean
@@ -72,6 +84,15 @@ unittest {
 
     auto randUlong = mutate(cast(ulong) 0);// ulong
     assert((typeof(randUlong).stringof == "long") && isUnsigned(randUlong));
+
+    assert(isSomeChar(mutate(0xFF))); // char
+
+    auto randDchar = mutate(0x0000FFFF); // dchar
+    assert(typeof(randDchar).stringof == "dchar");
+
+    auto randWchar = mutate(0xFFFF); // wchar
+    assert(typeof(randWchar).stringof == "wchar");
+
 }
 
 // TODO: randomly generate floats
@@ -110,18 +131,6 @@ ireal mutate(ireal a) {
 }
 
 creal mutate(creal a) {
-
-}
-
-char mutate(char a) {
-
-}
-
-wchar mutate(wchar a) {
-
-}
-
-dchar mutate(dchar a) {
 
 }
 
