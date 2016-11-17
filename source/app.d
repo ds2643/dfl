@@ -4,6 +4,8 @@ import std.stdio;
 import std.random;
 import std.traits;
 
+/* PRIMITIVE TYPES */
+
 bool mutate(bool a) {
     return (uniform(0,2) > 0);
 }
@@ -140,6 +142,26 @@ unittest { // TODO: add values
     // creal
     // char
 }
+
+/* DERIVED DATA TYPES */
+
+// pointer
+// array
+// strings (special case of arrays)
+// associative array
+// function
+// delegate
+
+/* USER DEFINED TYPES */
+
+// alias
+// enum
+// struct
+// union
+// class
+
+/* base types */
+// https://dlang.org/spec/type.html
 
 void main() {
     return 0;

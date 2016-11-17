@@ -1,3 +1,5 @@
+module fisr;
+
 import std.stdio;
 
 float fisr(float n) {
