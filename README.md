@@ -18,6 +18,7 @@ In the simple case of function taking an integer as its single argument, the fun
 # Current Standing
 
 This project is under active development. The following points detail the roadmap for the project's near future:
-1. Implement mutation function for floats. Is it possible to sample a domain of all possible floating point numbers?
-2. Trickle up typing: If user defined or complex types are abstractions composed of primitive types, is a general algorithm possible that maintains the structural integrity of such a container while validly mutating its contents?
-3. Ongoing building of tests as gross units of the tool are prototyped.
+1. Trickle up typing: If user defined or complex types are abstractions composed of primitive types, is a general algorithm possible that maintains the structural integrity of such a container while validly mutating its contents?
+a. Start by implementing mutations for built-in derived types like arrays, dynamic arrays, associative arrays, and building up from there
+b. also consider separate "algorithm" for structs or classes, which may live outside the D type-system
+2. Ongoing building of tests as gross units of the tool are prototyped.
