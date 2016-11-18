@@ -95,13 +95,41 @@ unittest {
 
 }
 
-// TODO: randomly generate floats
+/* NON-INTEGRAL NUMBERS */
 
-/*
 float mutate(float a) {
-    return uniform!float(); // 32 bits
+    union both {ulong input; float output;}
+    both val;
+    val.input = uniform!"[]"(ulong.min, ulong.max);
+    return val.output;
 }
 
+double mutate(double a) {
+    union both {ulong input; double output;}
+    both val;
+    val.input = uniform!"[]"(ulong.min, ulong.max);
+    return val.output;
+}
+
+real mutate(real a) {
+    union both {ulong input; real output;}
+    both val;
+    val.input = uniform!"[]"(ulong.min, ulong.max);
+    return val.output;
+}
+
+unittest {
+    // non-discrete numeric values
+    auto randFloat = mutate(cast(float) float.nan); // float
+    assert(isFloatingPoint(mutate(1.0F))); // float
+
+    // double
+    // real
+}
+
+// extend approach to imaginary and complex versions of float, double, and real types
+
+/*
 ifloat mutate(ifloat a) {
 
 }
@@ -110,19 +138,12 @@ cfloat mutate(cfloat a) {
 
 }
 
-double mutate(double a) {
-    return cast(long) uniform(0, 18446744073709551616);
 }
-
 idouble mutate(idouble a) {
 
 }
 
 cdouble mutate(cdouble a) {
-
-}
-
-real mutate(real a) {
 
 }
 
@@ -135,26 +156,11 @@ creal mutate(creal a) {
 }
 
 unittest {
-    // non-discrete numeric values and characters
-    auto randFloat = mutate(cast(float) float.nan); // float
-    assert(isFloatingPoint(mutate(1.0F)); // float
-
-    assert(isSomeChar(mutate(0xFF))); // char
-
-    auto randDchar = mutate(0x0000FFFF); // dchar
-    assert(typeof(randDchar) == dchar);
-
-    auto randWchar = mutate(0xFFFF); // wchar
-    assert(typeof(randWchar) == wchar);
-
-    // double double.nan
-    // real real.nan
     // ifloat
     // idouble
     // ireal
     // cfloat
     // cdouble
     // creal
-    // char
 }
 */
