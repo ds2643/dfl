@@ -120,11 +120,14 @@ real mutate(real a) {
 
 unittest {
     // non-discrete numeric values
-    auto randFloat = mutate(cast(float) float.nan); // float
-    assert(isFloatingPoint(mutate(1.0F))); // float
+    auto randFloat = mutate(cast(float) float.min); // float
+    assert(isFloatingPoint(mutate(1.0F)));
 
-    // double
-    // real
+    auto randReal = mutate(cast(real) real.min); // real
+    assert(typeof(randReal).stringof == "real");
+
+    auto randDouble = mutate(cast(double) double.min); // double
+    assert(typeof(randDouble).stringof == "double");
 }
 
 // extend approach to imaginary and complex versions of float, double, and real types
