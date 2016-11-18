@@ -1,4 +1,4 @@
-module mutate.primitives;
+module mutation;
 
 // mutate arbitrary data
 // overloaded mutation operation for primitive types
@@ -6,6 +6,7 @@ import std.stdio;
 import std.random;
 import std.traits;
 import std.math;
+import std.algorithm.iteration;
 
 /* PRIMITIVE TYPES */
 
@@ -159,6 +160,7 @@ creal mutate(creal a) {
 }
 
 unittest {
+
     // ifloat
     // idouble
     // ireal
@@ -167,3 +169,52 @@ unittest {
     // creal
 }
 */
+
+/* DERIVED TYPES */
+
+// pointers excluded as a valid datatype because of the danger of random pointer munipulation
+
+/* static array */
+// define for int, but generalize to other types after varifying proper behavior
+// does this target both static and dynamic arrays?
+int[] mutate(int[] a) {
+    // randomly
+    // takes and returns pointer to first element of array
+    int randElementIndex = cast(int) uniform(0, a.length); // randomly select locus for mutation within array
+    a[randElementIndex] = mutate(a[randElementIndex]);
+    return a;
+}
+
+// dynamic array
+// associative array
+
+// string as immutible char array of static length
+
+unittest {
+    int randomLength = uniform(0,100); // static array of ints
+    int[uniform(0, randomLength)] someStaticArray;
+    someStaticArray = map!(a => uniform!int())(someStaticArray);
+    auto someStaticArrayMutated = mutate(someStaticArray);
+    string expectedDataType = "int["
+    assert(typeof(someStaticArrayMutated).stringof == ("int[" ~ (cast(string) randomLength) ~ "]"));
+
+    // doing on a per primitive basis is too expensive: instead consider writing some kind of template
+
+    // dynamic array
+    // associative array
+    // string
+}
+
+// function
+// delegate
+
+/* USER DEFINED */
+
+// alias
+// enum
+// struct
+// union
+// class
+
+// base types
+// https://dlang.org/spec/type.html

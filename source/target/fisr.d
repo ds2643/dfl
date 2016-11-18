@@ -3,7 +3,6 @@ module target.fisr;
 import std.stdio;
 
 float fisr(float n) {
-    // in good code style, move these initializations locally to their point of use
     float x2 = n * 0.5F;
     float y = n;
     float threeHalves = 1.5F;
