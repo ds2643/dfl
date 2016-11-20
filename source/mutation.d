@@ -187,9 +187,9 @@ int[] mutate(int[] a) {
 
 int[int] mutate(int[int] a) {
     // randomly choose a key and mutate its value
-    allKeys = a.keys;
-    randomIndex = cast(int) uniform(0, a.length);
-    randomKey = allKeys[randomIndex];
+    auto allKeys = a.keys;
+    int randomIndex = cast(int) uniform(0, a.length);
+    int randomKey = allKeys[randomIndex];
     a[randomKey] = mutate(a[randomKey]);
     return a;
 }
