@@ -2,6 +2,8 @@ module mutation;
 
 // mutate arbitrary data
 // overloaded mutation operation for primitive types
+// contents: mutate() function, which is overloaded to work on any primitive or derived data
+
 import std.stdio;
 import std.random;
 import std.traits;
@@ -99,25 +101,37 @@ unittest {
 /* NON-INTEGRAL NUMBERS */
 
 float mutate(float a) {
-    union both {ulong input; float output;}
-    both val;
-    val.input = uniform!"[]"(ulong.min, ulong.max);
-    return val.output;
-}
-
-double mutate(double a) {
-    union both {ulong input; double output;}
-    both val;
-    val.input = uniform!"[]"(ulong.min, ulong.max);
-    return val.output;
+    return cast(float) uniform!uint();
 }
 
 real mutate(real a) {
-    union both {ulong input; real output;}
-    both val;
-    val.input = uniform!"[]"(ulong.min, ulong.max);
-    return val.output;
+    return cast(real) uniform!long(); // assumes 64 bits is largest size allowed by processor, but not accurate for x86 architecture
 }
+
+double mutate(double a) {
+    return cast(double) uniform!ulong();
+}
+
+//float mutate(float a) {
+//    union both {ulong input; float output;}
+//    both val;
+//    val.input = uniform!"[]"(ulong.min, ulong.max);
+//    return val.output;
+//}
+
+//double mutate(double a) {
+//    union both {ulong input; double output;}
+//    both val;
+//    val.input = uniform!"[]"(ulong.min, ulong.max);
+//    return val.output;
+//}
+
+//real mutate(real a) {
+//    union both {ulong input; real output;}
+//    both val;
+//    val.input = uniform!"[]"(ulong.min, ulong.max);
+//    return val.output;
+//}
 
 unittest {
     // non-discrete numeric values
@@ -134,33 +148,14 @@ unittest {
 // extend approach to imaginary and complex versions of float, double, and real types
 
 /*
-ifloat mutate(ifloat a) {
-
-}
-
-cfloat mutate(cfloat a) {
-
-}
-
-}
-idouble mutate(idouble a) {
-
-}
-
-cdouble mutate(cdouble a) {
-
-}
-
-ireal mutate(ireal a) {
-
-}
-
-creal mutate(creal a) {
-
-}
+ifloat mutate(ifloat a) {  }
+cfloat mutate(cfloat a) {  }
+idouble mutate(idouble a) {  }
+cdouble mutate(cdouble a) {  }
+ireal mutate(ireal a) {  }
+creal mutate(creal a) {  }
 
 unittest {
-
     // ifloat
     // idouble
     // ireal
@@ -178,15 +173,27 @@ unittest {
 // define for int, but generalize to other types after varifying proper behavior
 // does this target both static and dynamic arrays?
 int[] mutate(int[] a) {
-    // randomly
     // takes and returns pointer to first element of array
-    int randElementIndex = cast(int) uniform(0, a.length); // randomly select locus for mutation within array
-    a[randElementIndex] = mutate(a[randElementIndex]);
+    int randomIndex = cast(int) uniform(0, a.length); // randomly select locus for mutation within array
+    a[randomIndex] = mutate(a[randomIndex]);
     return a;
 }
 
 // dynamic array
-// associative array
+
+// association array
+// must be templated... number of possible combinations large (no_types ** 2)
+// prototype for int mapped to int
+
+int[int] mutate(int[int] a) {
+    // randomly choose a key and mutate its value
+    allKeys = a.keys;
+    randomIndex = cast(int) uniform(0, a.length);
+    randomKey = allKeys[randomIndex];
+    a[randomKey] = mutate(a[randomKey]);
+    return a;
+}
+
 
 // string as immutible char array of static length
 
@@ -195,13 +202,17 @@ unittest {
     int[uniform(0, randomLength)] someStaticArray;
     someStaticArray = map!(a => uniform!int())(someStaticArray);
     auto someStaticArrayMutated = mutate(someStaticArray);
-    string expectedDataType = "int["
     assert(typeof(someStaticArrayMutated).stringof == ("int[" ~ (cast(string) randomLength) ~ "]"));
 
     // doing on a per primitive basis is too expensive: instead consider writing some kind of template
 
     // dynamic array
-    // associative array
+    // association array: int:int
+    int[int] assArray;
+    assArray[1] = 1;
+    assArray[2] = 2;
+    assArray[3] = 3;
+    assert(typeOf(mutate(assArray)) == "int[int]" && (3 == assArray.keys.length));
     // string
 }
 
