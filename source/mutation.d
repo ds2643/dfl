@@ -224,8 +224,27 @@ unittest {
 // alias
 // enum
 // struct
+
+_ mutate(_ a) {
+    // create copy of struct's contents
+    // choose randomly among contents
+    // apply mutate(content)
+    // return mutant struct
+}
+
 // union
-// class
+
+/*
+   _ mutate(_ a) {
+   // mutates class instance
+    // duplicates class object
+    // create tuple of class members
+    // choose randomly from tuple
+    // mutate mutate that tuples contents in the duplicate
+    // return class instance
+   }
+ */
+
 
 // base types
 // https://dlang.org/spec/type.html
