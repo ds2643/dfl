@@ -218,35 +218,18 @@ unittest {
     // string
 }
 
-// function
-// delegate
+//struct TODO: same interface as other functions?
+auto mutate(T)(T a) {
+    if(is(T == struct)) {
+        auto copy = a.dup;
+        auto fields = FieldNameTuple!T;
+    }
 
-/* USER DEFINED */
-
-// alias
-// enum
-// struct
-
-_ mutate(_ a) {
-    // create copy of struct's contents
     // choose randomly among contents
     // apply mutate(content)
     // return mutant struct
 }
 
-// union
+// mutation function overloading for classes using templates not supported. templates only effective if identity of type is known at compile time. the general direction here: support for derived data types, but not user defined data types. functions omitted for difficulty of mutation.
 
-/*
-   _ mutate(_ a) {
-   // mutates class instance
-    // duplicates class object
-    // create tuple of class members
-    // choose randomly from tuple
-    // mutate mutate that tuples contents in the duplicate
-    // return class instance
-   }
- */
-
-
-// base types
 // https://dlang.org/spec/type.html
