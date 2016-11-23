@@ -12,6 +12,8 @@ import std.algorithm.iteration;
 
 /* PRIMITIVE TYPES */
 
+// ambiguity in cases of implicit type conversion may cause compilation errors. test to confirm expected behavior.
+
 bool mutate(bool a) {
     return (uniform(0,2) > 0);
 }
