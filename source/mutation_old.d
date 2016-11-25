@@ -1,3 +1,7 @@
+/*
+* deprecated for templated mutation module
+*/
+
 module mutation_old;
 
 // mutate arbitrary data
@@ -233,3 +237,4 @@ auto mutate(T)(T a) {
 // mutation function overloading for classes using templates not supported. templates only effective if identity of type is known at compile time. the general direction here: support for derived data types, but not user defined data types. functions omitted for difficulty of mutation.
 
 // https://dlang.org/spec/type.html
+

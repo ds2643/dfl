@@ -17,10 +17,10 @@ auto mutate(T)(T value){
     if(is(T == bool)) {
         return (uniform(0,2) > 0);
     }
-    else if (isIntegral(value))  {
+    else if (__traits(isIntegral, value))  {
         return cast(T) uniform!T();
     }
-    else if (isFloating(value)) {
+    else if (__traits(isFloating, value)) {
         // floating points cannot be generated with the uniform template like integral values
         if (is(T == float)) { return cast(T) uniform!uint(); }
         else if (is(T == real)) { return cast(T) uniform!long(); }
@@ -62,51 +62,56 @@ auto mutate(T, U)(T[U] value) {
 
 unittest {
     // test mutation of boolean and integral types
-    assert(isBoolean(mutate(true))); // boolean
+    auto booleanData = true;
+    assert(isBoolean(mutate!(bool)(booleanData))); // boolean
+    /*
+    auto randByte = mutate!(byte)(cast(byte) 0); // byte
+    assert((typeof(randByte).stringof == "byte") && __traits(isSigned, randByte));
 
-    auto randByte = mutate(cast(byte) 0); // byte
-    assert((typeof(randByte).stringof == "byte") && isSigned(randByte));
+    auto randUbyte = mutate!(ubyte)(cast(ubyte) 0); // ubyte
+    assert((typeof(randUbyte).stringof == "ubyte") && __traits(isUnsigned, randUbyte));
 
-    auto randUbyte = mutate(cast(ubyte) 0); // ubyte
-    assert((typeof(randUbyte).stringof == "ubyte") && isUnsigned(randUbyte));
+    auto randShort = mutate!(short)(cast(short) 0); // short
+    assert((typeof(randShort).stringof == "short") && __traits(isSigned, randShort));
 
-    auto randShort = mutate(cast(short) 0); // short
-    assert((typeof(randShort).stringof == "short") && isSigned(randShort));
+    auto randUshort = mutate!(ushort)(cast(ushort) 0); // ushort
+    assert((typeof(randUshort).stringof == "ushort") && __traits(isUnsigned, randUshort));
 
-    auto randUshort = mutate(cast(ushort) 0); // ushort
-    assert((typeof(randUshort).stringof == "ushort") && isUnsigned(randUshort));
+    auto randInt = mutate!(int)(cast(int) 0); // int
+    assert(__traits(isIntegral, randInt).stringof && __traits(isSigned, randInt));
 
-    auto randInt = mutate(cast(int) 0); // int
-    assert(isIntegral(randInt).stringof && isSigned(randInt));
+    auto randUint = mutate!(uint)(cast(uint) 0); // unit
+    assert(__traits(isIntegral, randUint).stringof && __traits(isUnsigned, randUint));
 
-    auto randUint = mutate(cast(uint) 0); // unit
-    assert(isIntegral(randUint).stringof && isUnsigned(randUint));
+    auto randLong = mutate!(long)(cast(long) 0L); // long
+    assert((typeof(randLong).stringof == "long") && __traits(isUnsigned, randLong));
 
-    auto randLong = mutate(cast(long) 0L); // long
-    assert((typeof(randLong).stringof == "long") && isUnsigned(randLong));
+    auto randUlong = mutate!(ulong)(cast(ulong) 0);// ulong
+    assert((typeof(randUlong).stringof == "long") && __traits(isUnsigned, randUlong));
 
-    auto randUlong = mutate(cast(ulong) 0);// ulong
-    assert((typeof(randUlong).stringof == "long") && isUnsigned(randUlong));
+    char charData = 0xFF;
+    assert(isSomeChar(mutate!(char)(charData))); // char
 
-    assert(isSomeChar(mutate(0xFF))); // char
-
-    auto randDchar = mutate(0x0000FFFF); // dchar
+    char dcharData = 0x0000FFFF;
+    auto randDchar = mutate!(dcha0xFFFFr)(dcharData); // dchar
     assert(typeof(randDchar).stringof == "dchar");
 
-    auto randWchar = mutate(0xFFFF); // wchar
+    wchar wcharData = 0xFFFF;
+    auto randWchar = mutate!(typeof(wcharData))(wcharData); // wchar
     assert(typeof(randWchar).stringof == "wchar");
 
     // non-discrete numeric values
-    auto randFloat = mutate(cast(float) float.min); // float
+    auto randFloat = mutate!(cast(float) float.min_normal); // float... note that choice of min_normal property arbitrarily (for instance, over min_exp or .min_10_exp)
     assert(isFloatingPoint(mutate(1.0F)));
 
-    auto randReal = mutate(cast(real) real.min); // real
+    auto randReal = mutate!(cast(real) real.min_normal); // real
     assert(typeof(randReal).stringof == "real");
 
-    auto randDouble = mutate(cast(double) double.min); // double
+    auto randDouble = mutate!(cast(double) double.min_normal); // double
     assert(typeof(randDouble).stringof == "double");
 
     // TODO: array
     // TODO: association array
     // TODO: association array
+    */
 }
