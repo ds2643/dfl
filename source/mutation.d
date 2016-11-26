@@ -97,19 +97,17 @@ unittest {
     auto mutatedULong = mutate(ulongData);
     assert(is(typeof(mutatedULong) == ulong));
 
-    // TODO: fix these tests
     char charData = 0xFF;
     auto mutatedChar = mutate(charData);
     assert(is(typeof(mutatedChar) == char));
 
+    dchar dcharData = 0x0000FFFF;
+    auto mutatedDChar = mutate(dcharData); // dchar
+    assert(is(dchar == typeof(mutatedDChar)));
 
-    char dcharData = 0x0000FFFF;
-    auto randDchar = mutate!(dcha0xFFFFr)(dcharData); // dchar
-    assert(typeof(randDchar).stringof == "dchar");
-
-    wchar wcharData = 0xFFFF;
-    auto randWchar = mutate!(typeof(wcharData))(wcharData); // wchar
-    assert(typeof(randWchar).stringof == "wchar");
+    wchar wcharData = (cast(dchar) 'a');
+    auto mutatedWChar = mutate(wcharData); // dchar
+    assert(is(wchar == typeof(mutatedWChar)));
 
     /*
     // non-discrete numeric values
