@@ -99,7 +99,9 @@ unittest {
 
     // TODO: fix these tests
     char charData = 0xFF;
-    assert(isSomeChar(mutate!(char)(charData))); // char
+    auto mutatedChar = mutate(charData);
+    assert(is(typeof(mutatedChar) == char));
+
 
     char dcharData = 0x0000FFFF;
     auto randDchar = mutate!(dcha0xFFFFr)(dcharData); // dchar
