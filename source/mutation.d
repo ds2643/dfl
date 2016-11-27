@@ -124,5 +124,12 @@ unittest {
     int[] arrayData = [1, 2, 3, 4, 5];
     auto mutatedArray = mutate(arrayData);
     assert(is(typeof(mutatedArray) == typeof(arrayData)));
-    // TODO: association array
+
+    int[float] aArrayData = [
+        1.0 : 1,
+        2.0 : 2,
+        3.0 : 3
+    ];
+    mutatedAArray = mutate(aArrayData);
+    assert(is(typeof(mutatedAArray) == typeof(aArrayData)));
 }
