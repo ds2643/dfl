@@ -1,5 +1,6 @@
 /*
  *  module provides template for mutating arbitrary data
+ * TODO: fix support for char data
  */
 
 module mutation;
@@ -87,7 +88,7 @@ unittest {
     auto mutatedULong = mutate(ulongData);
     assert(is(typeof(mutatedULong) == ulong));
 
-    /* CHAR OVERLOADS FAIL TO MATCH
+    /* TODO: CHAR OVERLOADS FAIL TO MATCH
     char charData = 0xFF;
     auto mutatedChar = mutate(charData);
     assert(is(typeof(mutatedChar) == char));
@@ -100,17 +101,22 @@ unittest {
     auto mutatedWChar = mutate(wcharData); // dchar
     assert(is(wchar == typeof(mutatedWChar)));
     */
-    /*
+
     // non-discrete numeric values
-    auto randFloat = mutate!(cast(float) float.min_normal); // float... note that choice of min_normal property arbitrarily (for instance, over min_exp or .min_10_exp)
-    assert(isFloatingPoint(mutate(1.0F)));
+    float floatData = float.min_normal;
+    auto mutatedFloat = mutate(floatData);
+    assert(is(typeof(mutatedFloat) == float));
 
-    auto randReal = mutate!(cast(real) real.min_normal); // real
-    assert(typeof(randReal).stringof == "real");
+    real realData = real.min_normal;
+    auto mutatedReal = mutate(realData);
+    assert(is(typeof(mutatedReal) == real));
 
-    auto randDouble = mutate!(cast(double) double.min_normal); // double
-    assert(typeof(randDouble).stringof == "double");
-    */
+    double doubleData = double.min_normal;
+    auto mutatedDouble = mutate(doubleData);
+    assert(is(typeof(mutatedDouble) == double));
+
+    // derived data types
+
     int[] arrayData = [1, 2, 3, 4, 5];
     auto mutatedArray = mutate(arrayData);
     assert(is(typeof(mutatedArray) == typeof(arrayData)));
@@ -121,5 +127,5 @@ unittest {
         3 : 3
     ];
     auto mutatedAArray = mutate(aArrayData);
-//    assert(is(typeof(mutatedAArray) == typeof(aArrayData)));
+    assert(is(typeof(mutatedAArray) == typeof(aArrayData)));
 }
