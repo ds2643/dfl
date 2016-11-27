@@ -38,16 +38,6 @@ auto mutate(T)(T[] value) {
     return a;
 }
 
-auto mutate(T)(T[T] value) {
-    // homogenous association array TODO generalize to heterogenous association array
-    auto a = value.dup; // copy to ensure safety TODO: don't make copy if unnecessary
-    auto allKeys = a.keys;
-    int randomIndex = cast(int) uniform(0, a.length);
-    T randomKey = allKeys[randomIndex];
-    a[randomKey] = mutate!(T)(randomKey);
-    return a;
-}
-
 auto mutate(T, U)(T[U] value) {
     // generalization to heterogenous association array
     auto a = value.dup; // copy to ensure safety TODO: don't make copy if unnecessary
@@ -125,11 +115,11 @@ unittest {
     auto mutatedArray = mutate(arrayData);
     assert(is(typeof(mutatedArray) == typeof(arrayData)));
 
-    int[float] aArrayData = [
-        1.0 : 1,
-        2.0 : 2,
-        3.0 : 3
+    int[int] aArrayData = [
+        1 : 1,
+        2 : 2,
+        3 : 3
     ];
-    mutatedAArray = mutate(aArrayData);
-    assert(is(typeof(mutatedAArray) == typeof(aArrayData)));
+    auto mutatedAArray = mutate(aArrayData);
+//    assert(is(typeof(mutatedAArray) == typeof(aArrayData)));
 }
