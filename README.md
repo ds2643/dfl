@@ -19,4 +19,7 @@ The central to the tool is a mutation template for randomly mutating data of bot
 
 ## Current Standing
 This project is under active development. The following points detail the roadmap for the project's near future:
-1. fix support for chars in mutation template 2. deploy commandline interface, genetic algorithm for feedback, and metaprogramming unit test generator
+
+1. fix support for chars in mutation template
+2. deploy commandline interface, genetic algorithm for feedback, and metaprogramming unit test generator
+3. command line interface first to be implemented with serial processing, then parallel (taking advantage of the processes independance); command line interface requires interface (domain specific language?) to specify well formed input
