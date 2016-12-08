@@ -17,6 +17,29 @@ In the simple case of function taking an integer as its single argument, the fun
 ## Directions
 The central to the tool is a mutation template for randomly mutating data of both primitive and derived types. This tool might be applied with several front ends. Firstly, a simple command line fuzzer with the appropriate domain specific language interface (for specifying a well formed input) might leverage independence of trial runs to run waves of parallelized processes. Secondly, a unit test framework might leverage a domain specific language of decorators to gtenerate test cases in an automated manner. Lastly, a genetic algorithm could be build over these two that leaves a simple parallel model for message passing concurrency as a feedback loop is built. This final approach requires some cost function to be specifed (e.g., what constitutes program failure?).
 
+## Use
+**Please note that this specification is incomplete and not yet implemented**
+
+`$> dfl -option [grammatic specification of stochastic data structure]`
+
+informal grammar specification:
+**primitives**
+`<string>` specifies a random string to be generated
+`<integer>` specifies a random integer to be generated
+`<float>` specifies a random float to be generated
+
+*syntax prototype*
+specify what constant elements as they would appear in standard input
+`hello world`
+specify elements that change within angled brackets
+`hello <string>`
+`[foo, <string>, <int>]`
+multiple arguments split with <0>, <1>, <2> ...
+
+*options*
+`-c` for command line input
+`-f` for input from file
+
 ## Current Standing
 This project is under active development. The following points detail the roadmap for the project's near future:
 
